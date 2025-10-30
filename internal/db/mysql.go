@@ -2,7 +2,6 @@ package db
 
 import (
 	"database/sql"
-	"fmt"
 	"log"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -10,18 +9,18 @@ import (
 
 var DB *sql.DB
 
-func Connect(user, password, host, dbname string) {
-	dsn := fmt.Sprintf("%s:%s@tcp(%s)/%s?parseTime=true", user, password, host, dbname)
-	database, err := sql.Open("mysql", dsn)
+func Connect() {
+	var err error
+	// No password, just username@tcp(...)
+	dsn := "root:@tcp(localhost:3306)/solusphere"
+	DB, err = sql.Open("mysql", dsn)
 	if err != nil {
-		log.Fatalf("Error opening database: %v", err)
+		log.Fatal("Failed to connect to database:", err)
 	}
 
-	// Test connection
-	if err := database.Ping(); err != nil {
-		log.Fatalf("Error connecting to database: %v", err)
+	if err = DB.Ping(); err != nil {
+		log.Fatal("Database ping failed:", err)
 	}
 
-	DB = database
-	log.Println("Connected to MySQL database!")
+	log.Println("Database connected successfully")
 }

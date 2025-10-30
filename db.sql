@@ -5,5 +5,4 @@ CREATE TABLE users (
     full_name VARCHAR(150),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-INSERT INTO users (email, password, full_name) 
-VALUES ('test@example.com', '1234', 'Test User');
+
