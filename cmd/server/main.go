@@ -17,6 +17,7 @@ func main() {
 
 	r := mux.NewRouter()
 
+	r.HandleFunc("/register", handlers.Register).Methods("POST")
 	r.HandleFunc("/login", handlers.Login).Methods("POST")
 	r.Handle("/profile", middleware.RequireAuth(http.HandlerFunc(handlers.Profile))).Methods("GET")
 
